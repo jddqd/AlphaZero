@@ -71,9 +71,9 @@ class AlphaZeroParallel:
             
             state, policy_targets, value_targets = np.array(state), np.array(policy_targets), np.array(value_targets).reshape(-1, 1)
             
-            state = torch.tensor(state, dtype=torch.float32)
-            policy_targets = torch.tensor(policy_targets, dtype=torch.float32)
-            value_targets = torch.tensor(value_targets, dtype=torch.float32)
+            state = torch.tensor(state, dtype=torch.float32, device=self.model.device)
+            policy_targets = torch.tensor(policy_targets, dtype=torch.float32, device=self.model.device)
+            value_targets = torch.tensor(value_targets, dtype=torch.float32, device=self.model.device)
             
             out_policy, out_value = self.model(state)
             
@@ -97,8 +97,8 @@ class AlphaZeroParallel:
             for epoch in trange(self.args['num_epochs']):
                 self.train(memory)
             
-            torch.save(self.model.state_dict(), f"model_{iteration}_{self.game_name}.pt")
-            torch.save(self.optimizer.state_dict(), f"optimizer_{iteration}_{self.game_name}.pt")
+            torch.save(self.model.state_dict(), f"src/save/model_{iteration}_{self.game_name}.pt")
+            torch.save(self.optimizer.state_dict(), f"src/save/optimizer_{iteration}_{self.game_name}.pt")
             
 class SPG:
     def __init__(self, game):

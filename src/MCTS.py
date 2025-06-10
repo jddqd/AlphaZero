@@ -127,18 +127,18 @@ class MCTSParallel:
         self.game = game
         self.args = args
         self.model = model
-        
+
     @torch.no_grad()
     def search(self, states, spGames):
 
         states_tmp = np.stack([self.game.normalize_observation(state) for state in states])
-        tensor = torch.tensor(states_tmp, dtype=torch.float32)
+        tensor = torch.tensor(states_tmp, dtype=torch.float32, device=self.model.device)
 
         policy, _ = self.model(tensor)
         policy = torch.softmax(policy, axis=1).squeeze(0).cpu().numpy()
         policy = (1 - self.args['dirichlet_epsilon']) * policy + self.args['dirichlet_epsilon'] \
             * np.random.dirichlet([self.args['dirichlet_alpha']] * self.game.action_size, size=policy.shape[0])
-        
+
         for i, spg in enumerate(spGames):
             spg_policy = policy[i]
             valid_moves = np.array(states[i].legal_actions_mask())
@@ -147,7 +147,7 @@ class MCTSParallel:
 
             spg.root = Node(self.game, self.args, states[i].clone(), visit_count=1)
             spg.root.expand(spg_policy)
-        
+
         for search in range(self.args['num_searches']):
             for spg in spGames:
                 spg.node = None
@@ -159,20 +159,20 @@ class MCTSParallel:
                 is_terminal = node.state.is_terminal()
                 value = node.state.rewards()[1 - (node.state.current_player() % 2)]
                 value = - np.abs(value)
-                
+
                 if is_terminal:
                     node.backpropagate(value)
-                    
+
                 else:
                     spg.node = node
-                    
+
             expandable_spGames = [mappingIdx for mappingIdx in range(len(spGames)) if spGames[mappingIdx].node is not None]
                     
             if len(expandable_spGames) > 0:
                 states = np.stack([spGames[mappingIdx].node.state for mappingIdx in expandable_spGames])
                 
                 states = np.stack([self.game.normalize_observation(state) for state in states])
-                tensor = torch.tensor(states, dtype=torch.float32)
+                tensor = torch.tensor(states, dtype=torch.float32, device=self.model.device)
                 policy, value = self.model(tensor)
 
                 policy = torch.softmax(policy, axis=1).squeeze(0).cpu().numpy()

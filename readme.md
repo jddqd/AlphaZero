@@ -35,7 +35,9 @@ You can find more detailed instructions in the official documentation:
 All required Python packages are listed in the provided `requirements.txt` file.
 
 ```bash
-# Install packages
+# make a virtual venv and install packages 
+python3 -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 ```
 
@@ -44,7 +46,7 @@ pip install -r requirements.txt
 _You can train a model by simply use :_
 
 ```bash
-python3 train.py --game_name=chess 
+python3 src/train.py --game_name=chess 
 ```
 
 ### Play
