@@ -1,5 +1,14 @@
 import numpy as np
 
+
+# In this implementation of AlphaZero, the algorithm plays against itself to generate training data using Monte Carlo Tree Search (MCTS).
+
+# During each iteration of the search function’s loop, the algorithm selects a game state (node) without any children, then determines the best move from that state according to the policy π.
+
+# However, the ResNet model is not player-invariant, it always predicts the optimal move as if it were player 0’s turn. 
+# Since the game state observations provided by OpenSpiel are player-invariant by default, we must manually swap the observation channels to simulate a perspective switch between player 0 and player 1.
+
+
 class Chess:
     """ Chess game representation for AlphaZero training. """
 
@@ -12,6 +21,7 @@ class Chess:
         self.size_encoded = 20 * 8 * 8
     
     def normalize_observation(self, state):
+        """ Normalize the observation tensor for the chess game. """
 
         obs_tensor = np.array(state.observation_tensor()).reshape(20, 8, 8)
         current_player = state.current_player()
@@ -26,7 +36,7 @@ class Chess:
                     np.rot90(tmp[i], k=2),
                 )
 
-            # Horizontal flip for the left/right channels (16 to 19)
+            # Rearrange the last 4 channels (castling rights and en passant)
             obs_tensor[16], obs_tensor[18] = tmp[18], tmp[16]
             obs_tensor[17], obs_tensor[19] = tmp[19], tmp[17]
 
@@ -46,6 +56,8 @@ class TicTacToe:
         self.size_encoded = 3
 
     def normalize_observation(self, state):
+        """ Normalize the observation tensor for the Tic Tac Toe game. """
+
         obs = np.array(state.observation_tensor())
         current_player = state.current_player()
 
