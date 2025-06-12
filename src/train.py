@@ -7,7 +7,6 @@ from dataclasses import asdict
 from AlphaZero_Parallel import AlphaZeroParallel
 import argparse
 
-# game = games.Chess()
 
 def main(args):
 
@@ -25,7 +24,7 @@ def main(args):
         game = games.TicTacToe()
 
 
-    model = ResNet(game, 4, 128, device=config_dict['device'])
+    model = ResNet(game, config_dict['num_resBlocks'], config_dict['num_hidden'], device=config_dict['device'])
 
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-4)
 

@@ -3,3 +3,4 @@ __pycache__/
 to_delete/
 model*
 optimizer*
+.DS_Store

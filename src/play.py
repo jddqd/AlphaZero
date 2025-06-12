@@ -7,7 +7,7 @@ import torch
 from configs import AlphaConfig
 from dataclasses import asdict
 
-# Initialize the TicTacToe game
+
 tictactoe = pyspiel.load_game("tic_tac_toe")
 game = TicTacToe()
 
@@ -18,12 +18,11 @@ player = 1
 config = AlphaConfig()
 args = asdict(config)
 
-model = ResNet(game, 4, 64, device=args['device'])
+model = ResNet(game, args['num_resBlocks'], args['num_hidden'], device=args['device'])
 model.load_state_dict(torch.load('final/save/model_2.pt'))
 model.eval()
 
 mcts = MCTS(game, args, model)
-
 
 
 while True:

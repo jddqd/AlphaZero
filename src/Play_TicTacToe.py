@@ -52,8 +52,8 @@ game = TicTacToe()
 config = AlphaConfig()
 args = asdict(config)
 
-model = ResNet(game, 4, 64, device=args['device'])
-model.load_state_dict(torch.load('final/save/model_2.pt'))
+model = ResNet(game, 4, 128, device=args['device'])
+model.load_state_dict(torch.load('src/save/model_2_tic_tac_toe.pt'))
 model.eval()
 
 mcts = MCTS(game, args, model)
@@ -213,6 +213,8 @@ def ai_move():
 	print(f"AlphaZero played action {action} at position ({row}, {col})")
 
 draw_lines()
+
+
 
 # ---------
 # VARIABLES
