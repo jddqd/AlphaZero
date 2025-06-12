@@ -51,6 +51,9 @@ python3 src/train.py --game_name=chess
 
 The interface for Tic-Tac-Toe is already implemented, once the model is trained and stored in `save/`, you can play by running `Play_TicTacToe.py`.
 
+https://github.com/user-attachments/assets/5aab1fd6-32ff-4b35-84b7-880fdb85ae4a
+
+
 ## 3. Adding Support for New Games
 
 To use this algorithm with other OpenSpiel games, you need to create a new class similar to those found in the `games/` directory. Further explanations are provided in the file `games`.
