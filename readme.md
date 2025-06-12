@@ -60,7 +60,6 @@ To use this algorithm with other OpenSpiel games, you need to create a new class
 
 
 
-
 ## 4. References
 
 - [`Mastering Chess and Shogi by Self-Play with a General Reinforcement Learning Algorithm`](https://arxiv.org/pdf/1712.01815)

@@ -1,10 +1,10 @@
 # MODULES
 import pygame, sys
 import numpy as np
-from games import TicTacToe
+from AlphaZero.games import TicTacToe
 import pyspiel
-from MCTS import MCTS
-from ResNet import ResNet
+from AlphaZero.MCTS import MCTS
+from AlphaZero.ResNet import ResNet
 import torch
 from configs import AlphaConfig
 from dataclasses import asdict

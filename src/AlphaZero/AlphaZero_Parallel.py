@@ -1,4 +1,4 @@
-from MCTS import MCTSParallel
+from AlphaZero.MCTS import MCTSParallel
 import numpy as np
 import pyspiel
 import torch

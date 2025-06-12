@@ -1,5 +1,5 @@
 
-from MCTS import MCTS
+from AlphaZero.MCTS import MCTS
 import numpy as np
 import pyspiel
 import torch

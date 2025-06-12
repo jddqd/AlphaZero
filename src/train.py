@@ -1,10 +1,9 @@
-import games
+import AlphaZero.games as games
 import torch
-from AlphaZero import AlphaZero
-from ResNet import ResNet
+from AlphaZero.ResNet import ResNet
 from configs import AlphaConfig
 from dataclasses import asdict
-from AlphaZero_Parallel import AlphaZeroParallel
+from AlphaZero.AlphaZero_Parallel import AlphaZeroParallel
 import argparse
 
 
