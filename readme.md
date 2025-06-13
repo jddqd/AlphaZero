@@ -1,4 +1,4 @@
-# ♟️ AlphaOne: A From-Scratch AlphaZero Implementation
+# AlphaOne: A From-Scratch AlphaZero Implementation
 
 
 ## 1. Introduction
@@ -12,7 +12,7 @@ At the core of [AlphaZero](https://arxiv.org/pdf/1712.01815) lies **Monte Carlo 
 </div>
 
 
-### 🎮 Supported Games
+### Supported Games
 
 This repository currently includes full support for:
 
